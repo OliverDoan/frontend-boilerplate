@@ -1,7 +1,9 @@
 import './App.css'
+import useRouteElements from './useRouteElements'
 
 function App() {
-  return <div className='text-red-50'>Hello</div>
+  const routeElements = useRouteElements()
+  return <> {routeElements}</>
 }
 
 export default App
