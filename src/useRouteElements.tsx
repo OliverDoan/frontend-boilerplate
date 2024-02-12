@@ -1,30 +1,14 @@
 import { useRoutes } from 'react-router-dom'
-import AuthLayout from './layouts/AuthLayout/AuthLayout'
-import Login from './pages/Login/Login'
-import Register from './pages/Register/Register'
+import Home from './pages/home'
+import NotFound from './pages/not-found'
 
 export default function useRouteElements() {
   const routeElements = useRoutes([
     {
       path: '/',
-      element: <div>hello</div>
+      element: <Home />
     },
-    {
-      path: '/login',
-      element: (
-        <AuthLayout>
-          <Login />
-        </AuthLayout>
-      )
-    },
-    {
-      path: '/register',
-      element: (
-        <AuthLayout>
-          <Register />
-        </AuthLayout>
-      )
-    }
+    { path: '*', element: <NotFound /> }
   ])
   return routeElements
 }
