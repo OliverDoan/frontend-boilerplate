@@ -1,8 +1,12 @@
-import useRouteElements from './useRouteElements'
+import { Outlet } from 'react-router-dom'
 
 function App() {
-  const routeElements = useRouteElements()
-  return <> {routeElements}</>
+  return (
+    <>
+      <h1>Hello world</h1>
+      <Outlet />
+    </>
+  )
 }
 
 export default App
