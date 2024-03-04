@@ -17,6 +17,7 @@ const Login = () => {
     try {
       const { data } = await authApi.login(values)
       console.log('🚀 ~ handleLogin ~ data:', data)
+      localStorage.setItem('token', JSON.stringify(data))
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.log('🚀 ~ handleLogin ~ error:', error.response.data)
