@@ -1,17 +1,23 @@
 import { createBrowserRouter } from 'react-router-dom'
 import App from 'src/App'
 import Home from 'src/pages/home'
-import NotFound from 'src/pages/not-found'
+import Login from 'src/pages/login'
+import ErrorPage from 'src/pages/error-page'
+import { appRouters } from './AppRouters'
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: appRouters.public.root,
     element: <App />,
-    errorElement: <NotFound />,
+    errorElement: <ErrorPage />,
     children: [
       {
-        path: 'home',
+        index: true,
         element: <Home />
+      },
+      {
+        path: appRouters.auth.login,
+        element: <Login />
       }
     ]
   }
