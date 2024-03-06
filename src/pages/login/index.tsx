@@ -17,16 +17,13 @@ const Login = () => {
   const navigate = useNavigate()
   const onFinish = async () => {
     const values = await form.validateFields()
-    // "email": "eve.holt@reqres.in",
-    // "password": "cityslicka"
     try {
       const { data } = await authApi.login(values)
-      console.log('🚀 ~ handleLogin ~ data:', data)
       localStorage.setItem('token', JSON.stringify(data))
       navigate(appRouters.public.home)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      console.log('🚀 ~ handleLogin ~ error:', error.response.data)
+      console.error('🚀 ~ handleLogin ~ error:', error.response.data)
     }
   }
 

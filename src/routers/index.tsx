@@ -2,10 +2,9 @@ import { Navigate, Outlet, createBrowserRouter } from 'react-router-dom'
 import App from 'src/App'
 import Home from 'src/pages/home'
 import Login from 'src/pages/login'
-import NotFound from 'src/pages/not-found'
+import ErrorPage from 'src/pages/error'
 import UserManagement from 'src/pages/user-management'
 import { appRouters } from './AppRouters'
-import DetailUser from 'src/pages/user-management/detail'
 
 export function ProtectedRoute() {
   const isAuthenticated = JSON.parse(localStorage.getItem('token')!)
@@ -26,12 +25,11 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <UserManagement />
-          },
-          { path: appRouters.user.detail, element: <DetailUser /> }
+          }
         ]
       }
     ],
-    errorElement: <NotFound />
+    errorElement: <ErrorPage />
   }
 ])
 

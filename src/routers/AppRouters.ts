@@ -7,7 +7,6 @@ export const appRouters = {
     home: '/'
   },
   user: {
-    listUser: '/user',
-    detail: '/user/:id'
+    listUser: '/users'
   }
 }
