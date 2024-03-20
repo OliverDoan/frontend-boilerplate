@@ -4,7 +4,8 @@ export const appRouters = {
     register: '/register'
   },
   public: {
-    home: '/'
+    home: '/',
+    form: '/form'
   },
   user: {
     listUser: '/users'

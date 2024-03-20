@@ -1,15 +1,10 @@
-import { Navigate, Outlet, createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter } from 'react-router-dom'
 import App from 'src/App'
+import ErrorPage from 'src/pages/error'
 import Home from 'src/pages/home'
 import Login from 'src/pages/login'
-import ErrorPage from 'src/pages/error'
-import UserManagement from 'src/pages/user-management'
 import { appRouters } from './AppRouters'
-
-export function ProtectedRoute() {
-  const isAuthenticated = JSON.parse(localStorage.getItem('token')!)
-  return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
-}
+import FormPage from 'src/pages/form'
 
 const router = createBrowserRouter([
   {
@@ -18,16 +13,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: appRouters.auth.login, element: <Login /> },
-      {
-        path: appRouters.user.listUser,
-        element: <ProtectedRoute />,
-        children: [
-          {
-            index: true,
-            element: <UserManagement />
-          }
-        ]
-      }
+      { path: appRouters.public.form, element: <FormPage /> }
     ],
     errorElement: <ErrorPage />
   }
