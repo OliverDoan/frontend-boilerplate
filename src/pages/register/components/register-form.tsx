@@ -6,12 +6,12 @@ import InputField from 'src/components/form-control/input-field/InputField'
 import PasswordField from 'src/components/form-control/password-field/PasswordField'
 import { schema, Schema } from 'src/utils/rules'
 
-type FormData = Pick<Schema, 'email' | 'password'>
-const loginSchema = schema.pick(['email', 'password'])
+type FormData = Pick<Schema, 'email' | 'password' | 'confirm_password'>
+const registerSchema = schema.pick(['email', 'password', 'confirm_password'])
 
-export default function LoginForm({ onSubmit }: { onSubmit: (data: FormData) => void }) {
+export default function RegisterForm({ onSubmit }: { onSubmit: (data: FormData) => void }) {
   const form = useForm({
-    resolver: yupResolver(loginSchema)
+    resolver: yupResolver(registerSchema)
   })
 
   const { isSubmitting } = form.formState
@@ -28,7 +28,7 @@ export default function LoginForm({ onSubmit }: { onSubmit: (data: FormData) => 
       noValidate
       onSubmit={form.handleSubmit(handleSubmit)}
     >
-      <Label className='text-4xl font-extrabold text-gray-800'>Sign in</Label>
+      <Label className='text-4xl font-extrabold text-gray-800'>Sign up</Label>
       <div>
         <div className='block mb-2'>
           <Label htmlFor='email' value='Your email' />
@@ -41,15 +41,23 @@ export default function LoginForm({ onSubmit }: { onSubmit: (data: FormData) => 
         </div>
         <PasswordField form={form} name='password' placeholder='Enter your password' />
       </div>
+      <div>
+        <div className='block mb-2'>
+          <Label htmlFor='confirm_password' value='Your confirm password' />
+        </div>
+        <InputField form={form} name='confirm_password' placeholder='Enter your confirm password' />
+      </div>
 
       <div className='flex items-center gap-2'>
-        <Label>Don't have an account</Label>
-        <Link to={'/register'}>
-          <a className='ml-1 text-cyan-600 hover:underline dark:text-cyan-500'>Register here</a>
+        <Label>Already have an account?</Label>
+        <Link to={'/login'}>
+          <a href='#' className='ml-1 text-cyan-600 hover:underline dark:text-cyan-500'>
+            Login
+          </a>
         </Link>
       </div>
       <Button type='submit' disabled={isSubmitting}>
-        Log in
+        Register new account
       </Button>
     </form>
   )
