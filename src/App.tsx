@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import Layout from 'src/components/layout'
 import HomePage from 'src/pages/home'
 import LoginPage from 'src/pages/login'
+import NotFoundPage from 'src/pages/not-found'
 
 // Styles
 import './app.css'
@@ -12,6 +13,7 @@ function App() {
       <Route element={<Layout />}>
         <Route path='/' element={<HomePage />} />
         <Route path='/login' element={<LoginPage />} />
+        <Route path='*' element={<NotFoundPage />} />
       </Route>
     </Routes>
   )
