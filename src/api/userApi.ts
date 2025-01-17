@@ -1,13 +1,11 @@
+import { AuthRequest, AuthResponse } from 'src/api/types/auth.type'
 import axiosClient from './axiosClient'
 
+export const URL_REGISTER = 'api/v1/users/'
+
 const userApi = {
-  register(data: FormData) {
-    const url = '/auth/local/register'
-    return axiosClient.post(url, data)
-  },
-  login(data: FormData) {
-    const url = '/auth/local'
-    return axiosClient.post(url, data)
+  register(body: AuthRequest) {
+    return axiosClient.post<AuthResponse>(URL_REGISTER, body)
   }
 }
 
