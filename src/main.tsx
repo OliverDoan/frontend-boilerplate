@@ -1,4 +1,5 @@
 import 'flowbite'
+import { SnackbarProvider } from 'notistack'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
@@ -11,7 +12,9 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <App />
+        <SnackbarProvider>
+          <App />
+        </SnackbarProvider>
       </Provider>
     </BrowserRouter>
   </StrictMode>

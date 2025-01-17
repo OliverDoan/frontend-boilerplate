@@ -3,11 +3,13 @@ import { Schema } from 'src/utils/rules'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { useAppDispatch } from 'src/redux/store'
 import { register } from 'src/redux/reducer/user.reducer'
+import { useSnackbar } from 'notistack'
 
 type FormData = Pick<Schema, 'email' | 'password' | 'confirm_password'>
 
 export default function RegisterPage() {
   const dispatch = useAppDispatch()
+  const { enqueueSnackbar } = useSnackbar()
   const handleSubmit = async (data: FormData) => {
     try {
       const res = await dispatch(
@@ -18,9 +20,12 @@ export default function RegisterPage() {
           name: data.email
         })
       )
-      console.log(unwrapResult(res))
-    } catch (error) {
+      unwrapResult(res)
+      enqueueSnackbar('Register successfully!!! 🎉', { variant: 'success' })
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       console.log('🚀 ~ handleSubmit ~ error:', error)
+      enqueueSnackbar(error.message, { variant: 'error' })
     }
   }
   return (
