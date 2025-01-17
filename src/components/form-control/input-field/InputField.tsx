@@ -19,6 +19,7 @@ export default function InputField<T extends FieldValues>({ form, name, ...rest 
       render={({ field: { onChange, onBlur, value, name }, fieldState: { error } }) => {
         return (
           <TextInput
+            autoComplete={name}
             helperText={<span className='font-medium'>{error?.message}</span>}
             color={error?.message ? 'failure' : 'gray'}
             name={name}

@@ -33,6 +33,7 @@ export default function PasswordField<T extends FieldValues>({ form, name, ...re
               value={value}
               onChange={onChange}
               onBlur={onBlur}
+              autoComplete={name}
             />
             <div className='flex items-center gap-2 mt-2'>
               <Checkbox id='showPassword' onClick={togglePasswordVisibility} />
