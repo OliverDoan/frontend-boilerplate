@@ -50,10 +50,8 @@ export default function RegisterForm({ onSubmit }: { onSubmit: (data: FormData) 
 
       <div className='flex items-center gap-2'>
         <Label>Already have an account?</Label>
-        <Link to={'/login'}>
-          <a href='#' className='ml-1 text-cyan-600 hover:underline dark:text-cyan-500'>
-            Login
-          </a>
+        <Link to={'/login'} className='ml-1 text-cyan-600 hover:underline dark:text-cyan-500'>
+          Login
         </Link>
       </div>
       <Button type='submit' disabled={isSubmitting}>
