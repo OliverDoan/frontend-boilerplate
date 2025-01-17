@@ -8,7 +8,6 @@ export default function HeaderMain() {
   const rootMatch = useMatch('/')
   const isHomePage = Boolean(rootMatch)
   const { i18n } = useTranslation()
-  console.log('🚀 ~ HeaderMain ~ i18n:', i18n.language)
 
   const onChangeLang = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const lang_code = e.target.value
