@@ -1,7 +1,7 @@
 import { AuthRequest, AuthResponse } from 'src/api/types/auth.type'
 import axiosClient from './axiosClient'
 
-export const URL_REGISTER = 'api/v1/users/'
+export const URL_REGISTER = 'api/v1/users'
 
 const userApi = {
   register(body: AuthRequest) {
