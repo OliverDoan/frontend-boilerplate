@@ -4,11 +4,13 @@ import { MdLanguage } from 'react-icons/md'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { LANGUAGES } from 'src/constants/languages'
-import { RootState } from 'src/redux/store'
+import { logout } from 'src/redux/reducer/user.reducer'
+import { RootState, useAppDispatch } from 'src/redux/store'
 
 export default function HeaderMain() {
   const token = useSelector((state: RootState) => state.user.token)
   const userEmail = useSelector((state: RootState) => state.user.userEmail)
+  const dispatch = useAppDispatch()
 
   const isLogin = Boolean(token)
   const { i18n } = useTranslation()
@@ -17,6 +19,11 @@ export default function HeaderMain() {
     const lang_code = e.target.value
     i18n.changeLanguage(lang_code)
   }
+
+  const onLogout = () => {
+    dispatch(logout())
+  }
+
   return (
     <Navbar fluid className='bg-gray-700 dark:bg-gray-900'>
       <Link to={'/'}>
@@ -53,7 +60,7 @@ export default function HeaderMain() {
               <Dropdown.Header>
                 <span className='block text-sm font-medium truncate'>{userEmail}</span>
               </Dropdown.Header>
-              <Dropdown.Item>Sign out</Dropdown.Item>
+              <Dropdown.Item onClick={onLogout}>Sign out</Dropdown.Item>
             </Dropdown>
             <Navbar.Toggle />
           </div>
