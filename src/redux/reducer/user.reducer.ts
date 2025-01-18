@@ -16,6 +16,11 @@ export const register = createAsyncThunk('user/register', async (payload: AuthRe
   return response
 })
 
+export const login = createAsyncThunk('user/login', async (payload: { email: string; password: string }) => {
+  const response = await userApi.login(payload)
+  return response
+})
+
 const userSlice = createSlice({
   name: 'user',
   initialState,

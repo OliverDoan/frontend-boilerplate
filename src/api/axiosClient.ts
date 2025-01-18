@@ -38,6 +38,10 @@ axiosClient.interceptors.response.use(
       throw new Error(firstError)
     }
 
+    if (status === 401) {
+      throw new Error(data.message)
+    }
+
     return Promise.reject(error)
   }
 )
