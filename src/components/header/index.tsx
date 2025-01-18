@@ -1,12 +1,16 @@
-import { Button, DarkThemeToggle, Navbar, Select } from 'flowbite-react'
+import { Avatar, Button, DarkThemeToggle, Dropdown, Navbar, Select } from 'flowbite-react'
 import { useTranslation } from 'react-i18next'
-import { Link, useMatch } from 'react-router-dom'
-import { LANGUAGES } from 'src/constants/languages'
 import { MdLanguage } from 'react-icons/md'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { LANGUAGES } from 'src/constants/languages'
+import { RootState } from 'src/redux/store'
 
 export default function HeaderMain() {
-  const rootMatch = useMatch('/')
-  const isHomePage = Boolean(rootMatch)
+  const token = useSelector((state: RootState) => state.user.token)
+  const userEmail = useSelector((state: RootState) => state.user.userEmail)
+
+  const isLogin = Boolean(token)
   const { i18n } = useTranslation()
 
   const onChangeLang = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -27,12 +31,32 @@ export default function HeaderMain() {
             </option>
           ))}
         </Select>
-        {isHomePage && (
+        {!isLogin ? (
           <Button>
             <Link to={'/login'}>
               <span>Đăng nhập</span>
             </Link>
           </Button>
+        ) : (
+          <div className='flex md:order-2'>
+            <Dropdown
+              arrowIcon={false}
+              inline
+              label={
+                <Avatar
+                  alt='User settings'
+                  img='https://flowbite.com/docs/images/people/profile-picture-5.jpg'
+                  rounded
+                />
+              }
+            >
+              <Dropdown.Header>
+                <span className='block text-sm font-medium truncate'>{userEmail}</span>
+              </Dropdown.Header>
+              <Dropdown.Item>Sign out</Dropdown.Item>
+            </Dropdown>
+            <Navbar.Toggle />
+          </div>
         )}
       </div>
     </Navbar>

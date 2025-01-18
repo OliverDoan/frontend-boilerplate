@@ -8,10 +8,12 @@ const URL_LOGIN = 'api/v1/auth/login'
 
 interface UserState {
   token: string
+  userEmail: string
 }
 
 const initialState: UserState = {
-  token: localStorage.getItem(StorageKeys.TOKEN) || ''
+  token: localStorage.getItem(StorageKeys.TOKEN) || '',
+  userEmail: localStorage.getItem(StorageKeys.USER) || ''
 }
 
 export const register = createAsyncThunk('user/register', async (body: AuthRequest) => {
@@ -22,6 +24,7 @@ export const register = createAsyncThunk('user/register', async (body: AuthReque
 export const login = createAsyncThunk('user/login', async (body: { email: string; password: string }) => {
   const response = await axiosClient.post<{ access_token: string; refresh_token: string }>(URL_LOGIN, body)
   localStorage.setItem(StorageKeys.TOKEN, response.data.access_token)
+  localStorage.setItem(StorageKeys.USER, body.email)
   return response.data
 })
 
@@ -32,6 +35,7 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(login.fulfilled, (state, action) => {
       state.token = action.payload.access_token
+      state.userEmail = action.meta.arg.email
     })
   }
 })
