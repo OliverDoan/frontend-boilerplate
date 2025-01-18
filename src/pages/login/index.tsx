@@ -1,5 +1,6 @@
 import { unwrapResult } from '@reduxjs/toolkit'
 import { useSnackbar } from 'notistack'
+import { useNavigate } from 'react-router-dom'
 import LoginForm from 'src/pages/login/components/login-form'
 import { login } from 'src/redux/reducer/user.reducer'
 import { useAppDispatch } from 'src/redux/store'
@@ -8,6 +9,7 @@ import { Schema } from 'src/utils/rules'
 type FormData = Pick<Schema, 'email' | 'password'>
 
 export default function LoginPage() {
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { enqueueSnackbar } = useSnackbar()
   const handleSubmit = async (data: FormData) => {
@@ -20,6 +22,7 @@ export default function LoginPage() {
       )
       unwrapResult(res)
       enqueueSnackbar('Login successfully!!! 🎉', { variant: 'success' })
+      navigate('/')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error('🚀 ~ handleSubmit ~ error:', error)
