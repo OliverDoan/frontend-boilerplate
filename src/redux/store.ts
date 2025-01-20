@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
+import categoryReducer from 'src/redux/reducer/category.reducer'
 import productReducer from 'src/redux/reducer/product.reducer'
 import userReducer from 'src/redux/reducer/user.reducer'
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    product: productReducer
+    product: productReducer,
+    category: categoryReducer
   }
 })
 
