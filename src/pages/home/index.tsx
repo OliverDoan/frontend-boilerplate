@@ -24,7 +24,7 @@ export default function HomePage() {
     <div className='flex w-full min-h-screen gap-4 p-4 dark:bg-gray-900'>
       <SideBarFilter />
       <div className='grid gap-4 mb-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4'>
-        {!loading ? productList.map((item) => <CardProduct key={item.id} />) : <CardProductSkeletons />}
+        {!loading ? productList.map((item) => <CardProduct key={item.id} item={item} />) : <CardProductSkeletons />}
       </div>
     </div>
   )
