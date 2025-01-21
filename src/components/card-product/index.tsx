@@ -4,11 +4,11 @@ import { THUMBNAIL_PLACEHOLDER } from 'src/constants/common'
 import { formatMoney } from 'src/utils/format'
 import { isValidHttpUrl } from 'src/utils/valid'
 
-export default function CardProduct({ item }: { item: Product }) {
+export default function CardProduct({ item, onClick }: { item: Product; onClick?: () => void }) {
   const imgUrl = isValidHttpUrl(item.images[0]) ? item.images[0] : THUMBNAIL_PLACEHOLDER
 
   return (
-    <Card imgAlt='Apple Watch Series 7 in colors pink, silver, and black' className='max-w-sm h-fit'>
+    <Card imgAlt={item.title} className='max-w-sm h-fit' onClick={onClick}>
       <div className=''>
         <img src={imgUrl} alt='' />
       </div>
