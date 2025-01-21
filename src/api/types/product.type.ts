@@ -6,3 +6,9 @@ export interface Product {
   category: number
   images: string[]
 }
+
+export interface Filter {
+  price_min?: string
+  price_max?: string
+  categoryId?: string
+}

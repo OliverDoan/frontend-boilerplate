@@ -25,10 +25,13 @@ const initialState: ProductState = {
 
 export const getAllProduct = createAsyncThunk(
   'product/getAll',
-  async ({ offset, limit }: { offset: number; limit: number }, thunkAPI) => {
-    const response = await axiosClient.get<Product[]>(`${URL_PRODUCT}?offset=${offset}&limit=${limit}`, {
-      signal: thunkAPI.signal
-    })
+  async ({ offset, limit, categoryId }: { offset: number; limit: number; categoryId?: number }, thunkAPI) => {
+    const response = await axiosClient.get<Product[]>(
+      `${URL_PRODUCT}?offset=${offset}&limit=${limit}&categoryId=${categoryId}`,
+      {
+        signal: thunkAPI.signal
+      }
+    )
     return response.data
   }
 )
