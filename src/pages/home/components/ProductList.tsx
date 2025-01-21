@@ -1,4 +1,5 @@
 import { Button, Label } from 'flowbite-react'
+import { useNavigate } from 'react-router-dom'
 import { Product } from 'src/api/types/product.type'
 import CardProduct from 'src/components/card-product'
 import CardProductSkeletons from 'src/components/card-product-skeletons'
@@ -14,11 +15,23 @@ export default function ProductList({
   noData: boolean
   onClickLoadMore: () => void
 }) {
+  const navigate = useNavigate()
+
+  const handleOnClick = (id: number) => {
+    navigate(`/${id}`)
+  }
+
   return (
     <div className='w-full'>
       <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
         {products.map((item) => (
-          <CardProduct key={item.id} item={item} />
+          <CardProduct
+            key={item.id}
+            item={item}
+            onClick={() => {
+              handleOnClick(item.id)
+            }}
+          />
         ))}
         {loading && Array.from({ length: 4 }).map((_, i) => <CardProductSkeletons key={i} />)}
       </div>
