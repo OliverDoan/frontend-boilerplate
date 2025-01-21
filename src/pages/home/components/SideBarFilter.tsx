@@ -1,7 +1,7 @@
 import { Sidebar } from 'flowbite-react'
 import { Filter } from 'src/api/types/product.type'
 import FilterByCategory from 'src/pages/home/components/FilterByCategory'
-import FilterByPrice from 'src/pages/home/components/FilterByPRICE'
+import FilterByPrice from 'src/pages/home/components/FilterByPrice'
 
 export default function SideBarFilter({
   onFiltersChange,
