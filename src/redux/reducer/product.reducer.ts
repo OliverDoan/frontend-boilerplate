@@ -36,6 +36,16 @@ export const getAllProduct = createAsyncThunk(
   }
 )
 
+export const getSingleProduct = createAsyncThunk(
+  'product/getSingleProduct',
+  async ({ id }: { id: number }, thunkAPI) => {
+    const response = await axiosClient.get<Product>(`${URL_PRODUCT}/${id}`, {
+      signal: thunkAPI.signal
+    })
+    return response.data
+  }
+)
+
 const productSlice = createSlice({
   name: 'product',
   initialState,
