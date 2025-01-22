@@ -1,13 +1,22 @@
-export default function CardItem() {
+import { Product } from 'src/api/types/product.type'
+import { THUMBNAIL_PLACEHOLDER } from 'src/constants/common'
+import { formatMoney } from 'src/utils/format'
+import { isValidHttpUrl } from 'src/utils/valid'
+
+export default function CardItem({
+  item,
+  onRemove
+}: {
+  item: Product & { quantity: number }
+  onRemove: (id: number) => void
+}) {
+  const imgUrl = isValidHttpUrl(item.images?.[0]) ? item.images?.[0] : THUMBNAIL_PLACEHOLDER
+
   return (
     <div className='p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6'>
       <div className='space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0'>
         <a href='#' className='shrink-0 md:order-1'>
-          <img
-            className='w-20 h-20 dark:block'
-            src='https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg'
-            alt='imac image'
-          />
+          <img className='w-20 h-20 dark:block' src={imgUrl} alt={item.title} />
         </a>
         <label htmlFor='counter-input' className='sr-only'>
           Choose quantity:
@@ -35,7 +44,7 @@ export default function CardItem() {
               id='counter-input'
               data-input-counter
               className='w-10 text-sm font-medium text-center text-gray-900 bg-transparent border-0 shrink-0 focus:outline-none focus:ring-0 dark:text-white'
-              defaultValue={2}
+              defaultValue={item.quantity}
               required
             />
             <button
@@ -62,13 +71,12 @@ export default function CardItem() {
             </button>
           </div>
           <div className='text-end md:order-4 md:w-32'>
-            <p className='text-base font-bold text-gray-900 dark:text-white'>$1,499</p>
+            <p className='text-base font-bold text-gray-900 dark:text-white'>{formatMoney(item.price)}</p>
           </div>
         </div>
         <div className='flex-1 w-full min-w-0 space-y-4 md:order-2 md:max-w-md'>
           <a href='#' className='text-base font-medium text-gray-900 hover:underline dark:text-white'>
-            PC system All in One APPLE iMac (2023) mqrq3ro/a, Apple M3, 24" Retina 4.5K, 8GB, SSD 256GB, 10-core GPU,
-            Keyboard layout INT
+            {item.title}
           </a>
           <div className='flex items-center gap-4'>
             <button
@@ -95,6 +103,7 @@ export default function CardItem() {
               Add to Favorites
             </button>
             <button
+              onClick={() => onRemove(item.id)}
               type='button'
               className='inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500'
             >

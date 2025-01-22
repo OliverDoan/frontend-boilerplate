@@ -1,7 +1,20 @@
-import { Button } from 'flowbite-react'
+import { Button, Label } from 'flowbite-react'
+import { useSnackbar } from 'notistack'
+import { useSelector } from 'react-redux'
 import CardItem from 'src/pages/cart/components/CardItem'
+import { removeFromCart } from 'src/redux/reducer/cart.reducer'
+import { RootState, useAppDispatch } from 'src/redux/store'
 
 export default function CartPage() {
+  const { enqueueSnackbar } = useSnackbar()
+  const dispatch = useAppDispatch()
+  const cartItems = useSelector((state: RootState) => state.cart.cartItems)
+
+  const handleRemoveFromCart = (id: number) => {
+    dispatch(removeFromCart(id))
+    enqueueSnackbar('Remove successfully!!! 🎉', { variant: 'success' })
+  }
+
   return (
     <section className='min-h-screen py-8 antialiased bg-white dark:bg-gray-900 md:py-16'>
       <div className='max-w-screen-xl px-4 mx-auto 2xl:px-0'>
@@ -9,7 +22,10 @@ export default function CartPage() {
         <div className='mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8'>
           <div className='flex-none w-full mx-auto lg:max-w-2xl xl:max-w-4xl'>
             <div className='space-y-6'>
-              <CardItem />
+              {cartItems.length === 0 && <Label htmlFor='no-data' value='No data' />}
+              {cartItems.map((item) => (
+                <CardItem key={item.id} onRemove={handleRemoveFromCart} item={item} />
+              ))}
             </div>
           </div>
           <div className='flex-1 max-w-4xl mx-auto mt-6 space-y-6 lg:mt-0 lg:w-full'>
