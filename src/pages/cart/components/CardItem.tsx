@@ -5,10 +5,12 @@ import { isValidHttpUrl } from 'src/utils/valid'
 
 export default function CardItem({
   item,
-  onRemove
+  onRemove,
+  onSetQuantity
 }: {
   item: Product & { quantity: number }
   onRemove: (id: number) => void
+  onSetQuantity: (id: number, quantity: number) => void
 }) {
   const imgUrl = isValidHttpUrl(item.images?.[0]) ? item.images?.[0] : THUMBNAIL_PLACEHOLDER
 
@@ -24,6 +26,7 @@ export default function CardItem({
         <div className='flex items-center justify-between md:order-3 md:justify-end'>
           <div className='flex items-center'>
             <button
+              onClick={() => onSetQuantity(item.id, item.quantity - 1)}
               type='button'
               id='decrement-button'
               data-input-counter-decrement='counter-input'
@@ -44,10 +47,11 @@ export default function CardItem({
               id='counter-input'
               data-input-counter
               className='w-10 text-sm font-medium text-center text-gray-900 bg-transparent border-0 shrink-0 focus:outline-none focus:ring-0 dark:text-white'
-              defaultValue={item.quantity}
+              value={item.quantity}
               required
             />
             <button
+              onClick={() => onSetQuantity(item.id, item.quantity + 1)}
               type='button'
               id='increment-button'
               data-input-counter-increment='counter-input'

@@ -29,11 +29,19 @@ const cartSlice = createSlice({
     removeFromCart(state, action: PayloadAction<number>) {
       const idNeedToRemove = action.payload
       state.cartItems = state.cartItems.filter((x) => x.id !== idNeedToRemove)
+    },
+    setQuantity(state, action: PayloadAction<{ id: number; quantity: number }>) {
+      const { id, quantity } = action.payload
+      // check if product is available in cart
+      const index = state.cartItems.findIndex((x) => x.id === id)
+      if (index >= 0) {
+        state.cartItems[index].quantity = quantity
+      }
     }
   }
 })
 
 const cartReducer = cartSlice.reducer
-export const { addToCart, removeFromCart } = cartSlice.actions
+export const { addToCart, removeFromCart, setQuantity } = cartSlice.actions
 
 export default cartReducer

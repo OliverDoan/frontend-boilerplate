@@ -2,7 +2,7 @@ import { Button, Label } from 'flowbite-react'
 import { useSnackbar } from 'notistack'
 import { useSelector } from 'react-redux'
 import CardItem from 'src/pages/cart/components/CardItem'
-import { removeFromCart } from 'src/redux/reducer/cart.reducer'
+import { removeFromCart, setQuantity } from 'src/redux/reducer/cart.reducer'
 import { cartTotalSelector } from 'src/redux/selector/cart.selector'
 import { RootState, useAppDispatch } from 'src/redux/store'
 import { formatMoney } from 'src/utils/format'
@@ -17,6 +17,10 @@ export default function CartPage() {
     enqueueSnackbar('Remove successfully!!! 🎉', { variant: 'success' })
   }
 
+  const handleChangeQuantity = (id: number, quantity: number) => {
+    dispatch(setQuantity({ id, quantity }))
+  }
+
   return (
     <section className='min-h-screen py-8 antialiased bg-white dark:bg-gray-900 md:py-16'>
       <div className='max-w-screen-xl px-4 mx-auto 2xl:px-0'>
@@ -26,7 +30,12 @@ export default function CartPage() {
             <div className='space-y-6'>
               {cartItems.length === 0 && <Label htmlFor='no-data' value='No data' />}
               {cartItems.map((item) => (
-                <CardItem key={item.id} onRemove={handleRemoveFromCart} item={item} />
+                <CardItem
+                  key={item.id}
+                  onRemove={handleRemoveFromCart}
+                  item={item}
+                  onSetQuantity={handleChangeQuantity}
+                />
               ))}
             </div>
           </div>
