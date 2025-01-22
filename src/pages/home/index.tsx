@@ -1,3 +1,4 @@
+import { useSnackbar } from 'notistack'
 import queryString from 'query-string'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -5,6 +6,7 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { Filter, Product } from 'src/api/types/product.type'
 import ProductList from 'src/pages/home/components/ProductList'
 import SideBarFilter from 'src/pages/home/components/SideBarFilter'
+import { addToCart } from 'src/redux/reducer/cart.reducer'
 import { getAllProduct } from 'src/redux/reducer/product.reducer'
 import { RootState, useAppDispatch } from 'src/redux/store'
 
@@ -17,6 +19,7 @@ export default function HomePage() {
   const location = useLocation()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
+  const { enqueueSnackbar } = useSnackbar()
 
   const handleFiltersChange = (newFilters: Filter) => {
     const filters = {
@@ -34,6 +37,15 @@ export default function HomePage() {
 
   const handleLoadMore = () => {
     setOffset((prev) => prev + 8)
+  }
+
+  const handleAddToCart = (item: Product) => {
+    dispatch(addToCart({ id: item.id, product: item, quantity: 1 }))
+    enqueueSnackbar('Add successfully!!! 🎉', { variant: 'success' })
+  }
+
+  const handleClickCardProduct = (id: number) => {
+    navigate(`/${id}`)
   }
 
   useEffect(() => {
@@ -58,7 +70,14 @@ export default function HomePage() {
   return (
     <div className='flex w-full min-h-screen gap-4 p-4 dark:bg-gray-900'>
       <SideBarFilter onFiltersChange={handleFiltersChange} currentCategory={searchParams.get('categoryId') || ''} />
-      <ProductList loading={loading} noData={noData} products={products} onClickLoadMore={handleLoadMore} />
+      <ProductList
+        loading={loading}
+        noData={noData}
+        products={products}
+        onClickLoadMore={handleLoadMore}
+        onAddToCart={handleAddToCart}
+        onClickCard={handleClickCardProduct}
+      />
     </div>
   )
 }

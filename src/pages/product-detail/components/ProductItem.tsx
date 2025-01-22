@@ -4,7 +4,13 @@ import { THUMBNAIL_PLACEHOLDER } from 'src/constants/common'
 import { formatMoney } from 'src/utils/format'
 import { isValidHttpUrl } from 'src/utils/valid'
 
-export default function ProductItem({ product }: { product: Product }) {
+export default function ProductItem({
+  product,
+  onAddToCart
+}: {
+  product: Product
+  onAddToCart: (item: Product) => void
+}) {
   const imgUrl = isValidHttpUrl(product.images?.[0]) ? product.images?.[0] : THUMBNAIL_PLACEHOLDER
 
   return (
@@ -31,7 +37,7 @@ export default function ProductItem({ product }: { product: Product }) {
                       <option key={i + 1}>{i + 1}</option>
                     ))}
                   </Select>
-                  <Button>
+                  <Button onClick={() => onAddToCart(product)}>
                     <svg
                       className='w-5 h-5 -ms-2 me-2'
                       aria-hidden='true'
