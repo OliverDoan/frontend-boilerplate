@@ -3,13 +3,15 @@ import { useSnackbar } from 'notistack'
 import { useSelector } from 'react-redux'
 import CardItem from 'src/pages/cart/components/CardItem'
 import { removeFromCart } from 'src/redux/reducer/cart.reducer'
+import { cartTotalSelector } from 'src/redux/selector/cart.selector'
 import { RootState, useAppDispatch } from 'src/redux/store'
+import { formatMoney } from 'src/utils/format'
 
 export default function CartPage() {
   const { enqueueSnackbar } = useSnackbar()
   const dispatch = useAppDispatch()
   const cartItems = useSelector((state: RootState) => state.cart.cartItems)
-
+  const cartTotal = useSelector(cartTotalSelector)
   const handleRemoveFromCart = (id: number) => {
     dispatch(removeFromCart(id))
     enqueueSnackbar('Remove successfully!!! 🎉', { variant: 'success' })
@@ -34,7 +36,7 @@ export default function CartPage() {
               <div className='space-y-4'>
                 <dl className='flex items-center justify-between gap-4 pt-2 border-t border-gray-200 dark:border-gray-700'>
                   <dt className='text-base font-bold text-gray-900 dark:text-white'>Total</dt>
-                  <dd className='text-base font-bold text-gray-900 dark:text-white'>$8,191.00</dd>
+                  <dd className='text-base font-bold text-gray-900 dark:text-white'>{formatMoney(cartTotal)}</dd>
                 </dl>
               </div>
               <Button className='w-full'>Payment</Button>
