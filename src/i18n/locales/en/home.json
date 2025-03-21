@@ -1,3 +1,6 @@
 {
-  "home__page":"Home Page"
+  "home__page":"Home Page",
+  "header__component":{
+    "login":"Login"
+  }
 }

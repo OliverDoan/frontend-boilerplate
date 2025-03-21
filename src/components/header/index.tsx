@@ -13,7 +13,7 @@ export default function HeaderMain() {
   const dispatch = useAppDispatch()
 
   const isLogin = Boolean(token)
-  const { i18n } = useTranslation()
+  const { i18n, t } = useTranslation()
 
   const onChangeLang = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const lang_code = e.target.value
@@ -62,7 +62,7 @@ export default function HeaderMain() {
         {!isLogin ? (
           <Button>
             <Link to={'/login'}>
-              <span>Đăng nhập</span>
+              <span>{t('header__component.login')}</span>
             </Link>
           </Button>
         ) : (
